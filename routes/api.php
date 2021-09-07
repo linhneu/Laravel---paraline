@@ -1,6 +1,7 @@
 <?php
-
-use Illuminate\Http\Request;
+use App\Http\Controllers\LoginControler;
+use App\Http\Controllers\DashBoardController;
+//use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
