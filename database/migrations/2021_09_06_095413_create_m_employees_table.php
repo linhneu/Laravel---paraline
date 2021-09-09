@@ -29,8 +29,6 @@ class CreateMEmployeesTable extends Migration
             $table->char('type_of_work', 1)->comment("1: Nhân viên chính thức full time, 2: Nhân viên partime, 3: Nhân viên thử việc, 4: Thực tập sinh");
             $table->integer('ins_id');
             $table->integer('upd_id')->nullable();
-            $table->dateTime('ins_datetime');
-            $table->dateTime('upd_datetime')->nullable();
             $table->char('del_flag', 1)->default(0)->comment("0: Active, 1: Deleted");
             $table->timestamps();
             $table->foreign('team_id')->references('id')->on('m_teams');

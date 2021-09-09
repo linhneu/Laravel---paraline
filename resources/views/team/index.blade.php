@@ -23,7 +23,7 @@
     <div class="col-md-12">
         <div class="card strpied-tabled-with-hover">
             <div class="card-header ">
-                <h4 class="card-title">Group List</h4>
+                <h4 class="card-title">Team List</h4>
                 <p class="card-category"></p>
             </div>
             <div class="col-md-10">
@@ -42,7 +42,7 @@
 
     </div>
             <div class="col-md-2">
-            <a  href="{{url ('/admin/group/add')}}" class="btn btn-round btn-fill btn-info">Add group</a>
+            <a  href="{{url ('/admin/team/add')}}" class="btn btn-round btn-fill btn-info">Add team</a>
             </div>
         </div>
 
@@ -52,18 +52,20 @@
             <thead>
                 <th>ID</th>
                 <th>Name</th>
+                <th>Group</th>
                 <th>Option</th>
             </thead>
             <tbody>
-                @foreach ($groups as $group)
+                @foreach ($teams as $team)
                 <tr>
-                    <td>{{$group->id}}</td>
-                    <td>{{$group->name}}</td>
+                    <td>{{$team->id}}</td>
+                    <td>{{$team->name}}</td>
+                    <td>{{$team->group->name}}</td>
                     <td>
-                        <a class="btn btn-primary" href="{{ route('group.getEdit',['id'=>$group->id]) }}">
+                        <a class="btn btn-primary" href="{{ route('team.getEdit',['id'=>$team->id]) }}">
                             Edit
                         </a>
-                        <a class="btn btn-danger" style="margin-left: 5px" href="{{ route('group.delete',['id'=>$group->id]) }}">
+                        <a class="btn btn-danger" style="margin-left: 5px" href="{{ route('team.delete',['id'=>$team->id]) }}">
                             Delete
                         </a>
                     </td>

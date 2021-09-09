@@ -128,6 +128,26 @@
                                 {{ Session::get('messages') }}
                             </p>
                             @endif
+                            @if ( Session::has('success') )
+                            <div class="alert alert-success alert-dismissible" role="alert">
+                                <strong>{{ Session::get('success') }}</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    <span class="sr-only">Close</span>
+                                </button>
+                            </div>
+                            @endif
+
+                            @if ( Session::has('error') )
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <strong>{{ Session::get('error') }}</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    <span class="sr-only">Close</span>
+                                </button>
+                            </div>
+                            @endif
+
                             <div class="content">
                                 <div class="box">
                                     <div class="content">
@@ -149,11 +169,11 @@
                                         </div>
                                         <div class="error"></div>
                                         <div class="form ">
-                                            <form method="post" action="" accept-charset="UTF-8">
+                                            <form method="POST" action="{{ url('admin/login') }}" accept-charset="UTF-8">
                                                 @csrf
-                                                <input id="email" class="form-control" style="color: white" type="text" placeholder="Email" name="email">
+                                                <input id="email" class="form-control" style="color: white" type="text" placeholder="Email" name="email" value="{{old('email')}}">
                                                 <input id="password" class="form-control" style="color: white" type="password" placeholder="Password" name="password">
-                                                <input class="btn btn-default btn-login" type="submit" value="Login">
+                                                <button class="btn btn-default btn-login" type="submit">Login</button>
                                             </form>
                                         </div>
                                     </div>

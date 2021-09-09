@@ -7,7 +7,7 @@ class GroupRepository extends BaseRepository
 {
     public function getModel()
     {
-        return \App\Models\GroupModel::class;
+        return \App\Models\EmployeeModel::class;
     }
     
 }

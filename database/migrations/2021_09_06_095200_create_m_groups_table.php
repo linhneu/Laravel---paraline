@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use phpDocumentor\Reflection\Types\Nullable;
 
 class CreateMGroupsTable extends Migration
 {
@@ -15,11 +16,9 @@ class CreateMGroupsTable extends Migration
     {
         Schema::create('m_groups', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name', 128);
-            $table->integer('ins_id');
-            $table->integer('upd_id')->nullable();
-            $table->dateTime('ins_datetime');
-            $table->dateTime('upd_datetime')->nullable();
+            $table->string('name', 128)->nullable();
+            $table->integer('ins_id')->nullable();
+            $table->integer('upd_id')->Nullable();
             $table->char('del_flag', 1)->default(0)->comment("0: Active, 1: Deleted");
             $table->timestamps();
         });

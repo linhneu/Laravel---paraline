@@ -1,2 +1,1 @@
-@extends('layouts.header')
-@extends('layouts.sidebar')
+@extends('layouts.frame')

@@ -16,23 +16,36 @@ class GroupController extends Controller
         $groups = $this->groupRepository->all();
         return view('group.index', compact('groups'));
     }
-    public function create(Request $request)
+    
+    public function getAdd(Request $request)
     {
-        $data = $request->all();
-        $group = $this->groupRepository->create($data);
-        return view('group.create', compact('group'));
+        return view('group.add');
     }
-    public function update(Request $request, $id)
+    public function postAdd(Request $request)
     {
         $data = $request->all();
-        $group = $this->groupRepository->update($id, $data);
-        return view('group.update', compact('group'));
+        $name = $request->get('name');
+        //return view('group.addConfirm')->with($name);
+        //redirect()->route('group.addConfirm')->with('data',$data);
+        $this->groupRepository->create($data);
+    }
+    public function getEdit(Request $request)
+    {
+        $id = $request->id;
+        $group = $this->groupRepository->find($id);
+        return view('group.edit', compact('group'));
+    }
+    public function postEdit(Request $request, $id)
+    {
+        $data = $request->all();
+        $this->groupRepository->update($id, $data);
     }
     public function delete(Request $request,$id)
     {
         $data = $request->all();
         $this->groupRepository->delete($id, $data);
-        return view('group.index')->with('message', 'You have deleted successfully!');
+        //$groups = $this->groupRepository->all();
+        //return view('group.index', compact($groups))->with('message', 'You have deleted successfully!');
     }
     public function find(Request $request)
     {

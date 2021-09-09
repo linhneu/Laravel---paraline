@@ -3,11 +3,10 @@ namespace App\Repositories;
 
 use App\Repositories\BaseRepository;
 
-class GroupRepository extends BaseRepository
+class TeamRepository extends BaseRepository
 {
     public function getModel()
     {
-        return \App\Models\GroupModel::class;
-    }
-    
+        return \App\Models\TeamModel::class;
+    }   
 }

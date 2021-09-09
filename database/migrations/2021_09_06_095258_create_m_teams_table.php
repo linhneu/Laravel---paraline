@@ -19,8 +19,6 @@ class CreateMTeamsTable extends Migration
             $table->string('name', 128);
             $table->integer('ins_id');
             $table->integer('upd_id')->nullable();
-            $table->dateTime('ins_datetime');
-            $table->dateTime('upd_datetime')->nullable();
             $table->char('del_flag', 1)->default(0)->comment("0: Active, 1: Deleted");
             $table->foreign('group_id')->references('id')->on('m_groups');
             $table->timestamps();
