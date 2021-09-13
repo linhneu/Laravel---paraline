@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserFormRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
@@ -14,44 +15,14 @@ class AdminController extends Controller
     {
         return view('login.index');
     }
-    public function postLogin(Request $request)
+    public function postLogin(UserFormRequest $request)
     {
-        // $rules = [
-        //     'email' => 'required|email',
-        //     'password' => 'required|min:6'
-        // ];
-        // $message = [
-        //     'email.required' => 'You must fill email',
-        //     'email.email' =>'email is not in correct format',
-        //     'password.required' => 'You must fill password',
-        //     'password.min' => 'password must have at least 8 characters',
-        // ];
-        // $validator = Validator::make($request->all(), $rules, $message);
 
-        // if ($validator->fails()) {
-        //     return redirect()->route('getLogin')->withErrors($validator)->withInput();
-        // } else {
-        //     $email = $request->input('email');
-        //     $password = $request->input('password');
-
-        //     if (Auth::attempt([
-        //         'email' => $email,
-        //         'password' => $password,
-        //     ])) {
-        //         return redirect()->route('dashboard');
-        //     } else {
-        //         return redirect()->route('getLogin')->with('message', 'Login is failed');
-        //     }
-        // }
-        $data = [
-            'email' => $request->email,
-            'password' => $request->password,
-        ];
-
-        if (Auth::attempt($data)) {
-           return redirect()->route('dashboard');
+        $input = $request->only('email', 'password');
+        if (Auth::attempt($input)) {
+           return redirect()->route('dashboard')->with('messages', 'Login is successful');
         } else {
-            dd('dn that bai');
+            return redirect()->route('getLogin')->with('messages', 'Login is failed');
         }
     }
     public function getLogout()

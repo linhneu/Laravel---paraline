@@ -201,7 +201,9 @@ h1 .subtitle {
 
 .text-danger,
 .text-danger:hover {
-    color: #FF4A55 !important;
+    color: #ffffff !important;
+    background-color: #FF99CC !important;
+    border-radius: 5px !important;
 }
 
 /*     General overwrite     */

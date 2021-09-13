@@ -2,7 +2,7 @@
 @section('content')
 <div class="card strpied-tabled-with-hover">
     <div class="card-header ">
-        <h4 class="card-title">Add team</h4>
+        <h4 class="card-title">Do you want to add this team?</h4>
         <p class="card-category"></p>
     </div>
     <div class="panel-body" style="margin-left: 15px">
@@ -13,12 +13,6 @@
                     <div class="form-group">
                         <label>Name</label>
                         <input type="text" name="name" class="form-control" value="">
-                        @error('name')
-                        <p class="text-danger text-center"  style="">
-                            {{ $message }}
-                        </p>
-                        @enderror
-
                     </div>
                     <div class="form-group">
                         <label>Group name</label>
@@ -30,8 +24,8 @@
                         </select>
                     </div>
 
-                    <button type="submit" class="btn btn-primary" >Add</button>
-                    <a href="{{ url('/management/team')}}" class="btn btn-danger">Cancel</a>
+                    <button type="submit" class="btn btn-primary" >Agree</button>
+                    <a href="{{ url()->previous()}}" class="btn btn-danger">Cancel</a>
                 </div>
             </div>
         </form>

@@ -41,15 +41,21 @@
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link" href="{{url ('/admin/group')}}">
+                        <a class="nav-link" href="{{url ('/management/group')}}">
                             <i class="nc-icon nc-bell-55"></i>
                             <p>Group</p>
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link" href="{{url ('/admin/team')}}">
+                        <a class="nav-link" href="{{url ('/management/team')}}">
                             <i class="nc-icon nc-bell-55"></i>
                             <p>Team</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="{{url ('/management/employee')}}">
+                            <i class="nc-icon nc-bell-55"></i>
+                            <p>Employee</p>
                         </a>
                     </li>
 
@@ -121,7 +127,7 @@
                                 </div>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{url('/admin/logout')}}">
+                                <a class="nav-link" href="{{url('/management/logout')}}">
                                     <span class="no-icon">Log out</span>
                                 </a>
                             </li>
@@ -220,7 +226,7 @@
     </div>
 </div>
  -->
-    @yield('script')
+
 </body>
 
 <!--   Core JS Files   -->

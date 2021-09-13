@@ -3,7 +3,7 @@ namespace App\Repositories;
 
 use App\Repositories\BaseRepository;
 
-class GroupRepository extends BaseRepository
+class EmployeeRepository extends BaseRepository
 {
     public function getModel()
     {

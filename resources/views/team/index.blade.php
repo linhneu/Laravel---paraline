@@ -1,23 +1,23 @@
 @extends('layouts.frame')
 @section('content')
 @if ( Session::has('success') )
-	<div class="alert alert-success alert-dismissible" role="alert">
-		<strong>{{ Session::get('success') }}</strong>
-		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-			<span aria-hidden="true">&times;</span>
-			<span class="sr-only">Close</span>
-		</button>
-	</div>
+<div class="alert alert-success alert-dismissible" role="alert">
+    <strong>{{ Session::get('success') }}</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        <span class="sr-only">Close</span>
+    </button>
+</div>
 @endif
 
 @if ( Session::has('error') )
-	<div class="alert alert-danger alert-dismissible" role="alert">
-		<strong>{{ Session::get('error') }}</strong>
-		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-			<span aria-hidden="true">&times;</span>
-			<span class="sr-only">Close</span>
-		</button>
-	</div>
+<div class="alert alert-danger alert-dismissible" role="alert">
+    <strong>{{ Session::get('error') }}</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        <span class="sr-only">Close</span>
+    </button>
+</div>
 @endif
 <div class="row">
     <div class="col-md-12">
@@ -27,22 +27,29 @@
                 <p class="card-category"></p>
             </div>
             <div class="col-md-10">
-        <form action="" method="GET">
-            <div class="row">
-                <div class="col-md-4">
-                    <input type="search" name="search" class="form-control">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-8 mt-1 mb-1">
-                <button type="submit" class="btn btn-success">Search</button>
-                </div>
-            </div>
-        </form>
+                <form action="{{route('team.getSearch')}}" method="GET">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <input type="text" name="search" class="form-control">
+                            <select class="form-control" name="group_id">
+                                <option value="">Choose group</option>
+                                @foreach ($groups as $group)
+                                <option value="{{$group->id}}">
+                                    {{$group->name}}
+                                </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8 mt-1 mb-1">
+                                <button type="submit" class="btn btn-success">Search</button>
+                            </div>
+                        </div>
+                </form>
 
-    </div>
+            </div>
             <div class="col-md-2">
-            <a  href="{{url ('/admin/team/add')}}" class="btn btn-round btn-fill btn-info">Add team</a>
+                <a href="{{url ('/management/team/add')}}" class="btn btn-round btn-fill btn-info">Add team</a>
             </div>
         </div>
 

@@ -1,8 +1,9 @@
 @extends('layouts.frame')
 @section('content')
+
 <div class="card strpied-tabled-with-hover">
     <div class="card-header ">
-        <h4 class="card-title">Edit group</h4>
+        <h4 class="card-title">Do you agree to change this information?</h4>
         <p class="card-category"></p>
     </div>
     <div class="panel-body" style="margin-left: 15px">
@@ -12,20 +13,15 @@
                 <div class="col-xs-8">
                     <div class="form-group">
                         <label>Name</label>
-                        <input type="text" name="name" class="form-control" value="{{old('name',$group->name)}}">
-                        @error('name')
-                        <p class="text-danger text-center"  style="">
-                            {{ $message }}
-                        </p>
-                        @enderror
+                        <input type="text" name="name" class="form-control" value="{{old('name')}}" readonly>
                     </div>
-                    <button type="submit" class="btn btn-primary">Edit</button>
-                    <a href="{{ url('/management/group')}}" class="btn btn-danger">Cancel</a>
+                    <button type="submit" class="btn btn-primary">Agree</button>
+                    <a href="" class="btn btn-danger">Back</a>
                 </div>
             </div>
         </form>
     </div>
 
 </div>
-@endsection
 
+@endsection

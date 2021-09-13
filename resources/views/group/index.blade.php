@@ -27,7 +27,7 @@
                 <p class="card-category"></p>
             </div>
             <div class="col-md-10">
-        <form action="" method="GET">
+        <form action="{{route('group.getSearch')}}" method="GET">
             <div class="row">
                 <div class="col-md-4">
                     <input type="search" name="search" class="form-control">
@@ -42,7 +42,7 @@
 
     </div>
             <div class="col-md-2">
-            <a  href="{{url ('/admin/group/add')}}" class="btn btn-round btn-fill btn-info">Add group</a>
+            <a  href="{{url ('/management/group/add')}}" class="btn btn-round btn-fill btn-info">Add group</a>
             </div>
         </div>
 
@@ -71,8 +71,13 @@
                 @endforeach
             </tbody>
         </table>
+        {{$groups->links()}}
     </div>
+
 </div>
 </div>
 </div>
+
+    
+        
 @endsection

@@ -37,7 +37,6 @@
             padding: 20px;
             text-align: left;
         }
-
         .atv,
         .str {
             color: #05AE0E;
@@ -169,12 +168,27 @@
                                         </div>
                                         <div class="error"></div>
                                         <div class="form ">
-                                            <form method="POST" action="{{ url('admin/login') }}" accept-charset="UTF-8">
+                                            <form method="POST" action="{{url('/management/login')}}" accept-charset="UTF-8">
                                                 @csrf
                                                 <input id="email" class="form-control" style="color: white" type="text" placeholder="Email" name="email" value="{{old('email')}}">
+                                                @error('email')
+                                                <p class="text-danger text-center" style="">
+                                                {{ $message }}
+                                                </p>
+                                                @enderror
                                                 <input id="password" class="form-control" style="color: white" type="password" placeholder="Password" name="password">
+                                                @error('password')
+                                                <p class="text-danger text-center" style="">
+                                                {{ $message }}
+                                                </p>
+                                                @enderror
                                                 <button class="btn btn-default btn-login" type="submit">Login</button>
                                             </form>
+                                            @if (Session::has('messages'))
+                                            <p class="text-danger text-center">
+                                                {{ Session::get('messages') }}
+                                            </p>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>

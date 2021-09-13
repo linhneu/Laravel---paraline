@@ -17,4 +17,8 @@ class TeamModel extends Model
     {
         return $this->belongsTo(GroupModel::class);
     }
+    public function scopeGroupId($query, $group_id)
+    {
+         return $query->where('group_id', '=', $group_id );
+    }
 }

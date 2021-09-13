@@ -5,9 +5,11 @@ interface RepositoryInterface
 {
     public function all();
 
-    public function paginate($limit, $data);
+    public function paginate();
 
     public function find($id);
+
+    public function findByField($earch);
 
     public function create(array $data);
 
