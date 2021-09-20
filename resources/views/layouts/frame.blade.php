@@ -17,16 +17,14 @@
     <link href="{{ asset ('css/light-bootstrap-dashboard.css?v=2.0.0') }}" rel="stylesheet" />
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href=" {{ asset('css/demo.css')}}" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </head>
 
 <body>
     <div class="wrapper">
-        <div class="sidebar" data-image="../assets/img/sidebar-5.jpg">
-            <!--
-        Tip 1: You can change the color of the sidebar using: data-color="purple | blue | green | orange | red"
-
-        Tip 2: you can also add an image using data-image tag
-    -->
+        <div class="sidebar" data-image="{{ asset('img/sidebar-5.jpg')}}">
             <div class="sidebar-wrapper">
                 <div class="logo">
                     <a href="javascript:;" class="simple-text">
@@ -34,27 +32,27 @@
                     </a>
                 </div>
                 <ul class="nav">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="">
+                    <li id="home" class="nav-item ">
+                        <a class="nav-link" href="{{url ('/management/dashboard')}}">
                             <i class="nc-icon nc-icon nc-paper-2"></i>
                             <p>Dashboard</p>
                         </a>
                     </li>
-                    <li>
+                    <li id="group" class="nav-item ">
                         <a class="nav-link" href="{{url ('/management/group')}}">
-                            <i class="nc-icon nc-bell-55"></i>
+                            <i class="nc-icon nc-layers-3"></i>
                             <p>Group</p>
                         </a>
                     </li>
-                    <li>
+                    <li id="team" class="nav-item ">
                         <a class="nav-link" href="{{url ('/management/team')}}">
-                            <i class="nc-icon nc-bell-55"></i>
+                            <i class="nc-icon nc-grid-45"></i>
                             <p>Team</p>
                         </a>
                     </li>
-                    <li>
+                    <li id="employee" class="nav-item ">
                         <a class="nav-link" href="{{url ('/management/employee')}}">
-                            <i class="nc-icon nc-bell-55"></i>
+                            <i class="nc-icon nc-badge"></i>
                             <p>Employee</p>
                         </a>
                     </li>
@@ -133,120 +131,87 @@
                             </li>
                         </ul>
                     </div>
+
                 </div>
             </nav>
             <!-- End Navbar -->
+            <div style="margin-left: 830px; margin-top: 10px; margin-bottom: -20px">
+                @yield('add')
+            </div>
+            <div class="message" style="margin-bottom: -20px; margin-left: 35px ">
+                @yield('message')
+            </div>
             <div class="content">
                 <div class="container-fluid">
                     <div class="section">
                         @yield('content')
                     </div>
-
                 </div>
             </div>
 
         </div>
     </div>
-    <!--   -->
-    <!-- <div class="fixed-plugin">
-    <div class="dropdown show-dropdown">
-        <a href="#" data-toggle="dropdown">
-            <i class="fa fa-cog fa-2x"> </i>
-        </a>
-
-        <ul class="dropdown-menu">
-			<li class="header-title"> Sidebar Style</li>
-            <li class="adjustments-line">
-                <a href="javascript:void(0)" class="switch-trigger">
-                    <p>Background Image</p>
-                    <label class="switch">
-                        <input type="checkbox" data-toggle="switch" checked="" data-on-color="primary" data-off-color="primary"><span class="toggle"></span>
-                    </label>
-                    <div class="clearfix"></div>
-                </a>
-            </li>
-            <li class="adjustments-line">
-                <a href="javascript:void(0)" class="switch-trigger background-color">
-                    <p>Filters</p>
-                    <div class="pull-right">
-                        <span class="badge filter badge-black" data-color="black"></span>
-                        <span class="badge filter badge-azure" data-color="azure"></span>
-                        <span class="badge filter badge-green" data-color="green"></span>
-                        <span class="badge filter badge-orange" data-color="orange"></span>
-                        <span class="badge filter badge-red" data-color="red"></span>
-                        <span class="badge filter badge-purple active" data-color="purple"></span>
-                    </div>
-                    <div class="clearfix"></div>
-                </a>
-            </li>
-            <li class="header-title">Sidebar Images</li>
-
-            <li class="active">
-                <a class="img-holder switch-trigger" href="javascript:void(0)">
-                    <img src="../assets/img/sidebar-1.jpg" alt="" />
-                </a>
-            </li>
-            <li>
-                <a class="img-holder switch-trigger" href="javascript:void(0)">
-                    <img src="../assets/img/sidebar-3.jpg" alt="" />
-                </a>
-            </li>
-            <li>
-                <a class="img-holder switch-trigger" href="javascript:void(0)">
-                    <img src="..//assets/img/sidebar-4.jpg" alt="" />
-                </a>
-            </li>
-            <li>
-                <a class="img-holder switch-trigger" href="javascript:void(0)">
-                    <img src="../assets/img/sidebar-5.jpg" alt="" />
-                </a>
-            </li>
-
-            <li class="button-container">
-                <div class="">
-                    <a href="http://www.creative-tim.com/product/light-bootstrap-dashboard" target="_blank" class="btn btn-info btn-block btn-fill">Download, it's free!</a>
-                </div>
-            </li>
-
-            <li class="header-title pro-title text-center">Want more components?</li>
-
-            <li class="button-container">
-                <div class="">
-                    <a href="http://www.creative-tim.com/product/light-bootstrap-dashboard-pro" target="_blank" class="btn btn-warning btn-block btn-fill">Get The PRO Version!</a>
-                </div>
-            </li>
-
-            <li class="header-title" id="sharrreTitle">Thank you for sharing!</li>
-
-            <li class="button-container">
-				<button id="twitter" class="btn btn-social btn-outline btn-twitter btn-round sharrre"><i class="fa fa-twitter"></i> · 256</button>
-                <button id="facebook" class="btn btn-social btn-outline btn-facebook btn-round sharrre"><i class="fa fa-facebook-square"></i> · 426</button>
-            </li>
-        </ul>
-    </div>
-</div>
- -->
 
 </body>
+@yield('script')
+
+<script>
+    function sortByField(field) {
+        let type_inner = '';
+        let params = new URLSearchParams(location.search);
+        let currentType = params.get('sort_type');
+        if (currentType === 'asc') {
+            type_inner = 'desc';
+        } else if (currentType === 'desc') {
+            type_inner = 'asc';
+        } else {
+            type_inner = 'asc';
+        }
+        params.set('sort_field', field);
+        params.set('sort_type', type_inner);
+        location.search = params.toString();
+        console.log(params.toString());
+    }
+    
+    $(document).ready(function () {         
+    $(function(){
+        var current_page_URL = location.href;
+
+        $( "a" ).each(function() {
+
+            if ($(this).attr("href") !== "#") {
+
+                var target_URL = $(this).prop("href");
+
+                    if (target_URL == current_page_URL) {
+                        $('nav a').parents('li, ul').removeClass('active');
+                        $(this).parent('li').addClass('active');
+                        return false;
+                    }
+            }
+        }); }); });
+</script>
 
 <!--   Core JS Files   -->
-<script src="../js/core/jquery.3.2.1.min.js" type="text/javascript"></script>
-<script src="../js/core/popper.min.js" type="text/javascript"></script>
-<script src="../js/core/bootstrap.min.js" type="text/javascript"></script>
+<script src="{{ asset('js/core/jquery.3.2.1.min.js')}}" type="text/javascript"></script>
+<script src="{{ asset('js/core/popper.min.js')}}" type="text/javascript"></script>
+<script src="{{ asset ('js/core/bootstrap.min.js')}}" type="text/javascript"></script>
 <!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
-<script src="../js/plugins/bootstrap-switch.js"></script>
+<script src="{{ asset('js/plugins/bootstrap-switch.js')}}"></script>
 <!--  Google Maps Plugin    -->
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
 <!--  Chartist Plugin  -->
-<script src="../js/plugins/chartist.min.js"></script>
+<script src="{{ asset('js/plugins/chartist.min.js') }}"></script>
 <!--  Notifications Plugin    -->
-<script src="../js/plugins/bootstrap-notify.js"></script>
+<script src="{{ asset('js/plugins/bootstrap-notify.js') }}"></script>
 <!-- Control Center for Light Bootstrap Dashboard: scripts for the example pages etc -->
-<script src="../js/light-bootstrap-dashboard.js?v=2.0.0 " type="text/javascript"></script>
+<script src="{{ asset('js/light-bootstrap-dashboard.js?v=2.0.0') }} " type="text/javascript"></script>
 <!-- Light Bootstrap Dashboard DEMO methods, don't include it in your project! -->
-<script src="../js/demo.js"></script>
+<script src="{{ asset('js/demo.js')}}"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+
 
 </html>

@@ -1,27 +1,21 @@
 @extends('layouts.frame')
+@section('add')
+<div class="col-md-2">
+    <a href="{{url ('/management/team/add')}}" class="btn btn-round btn-fill btn-info">Add team</a>
+</div>
+@endsection
+@section('message')
+@if(Session::has('message'))
+<p class="alert alert-success col-md-4">
+    {{Session::get('message')}}
+</p>
+@endif
+@endsection
 @section('content')
-@if ( Session::has('success') )
-<div class="alert alert-success alert-dismissible" role="alert">
-    <strong>{{ Session::get('success') }}</strong>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-        <span class="sr-only">Close</span>
-    </button>
-</div>
-@endif
-
-@if ( Session::has('error') )
-<div class="alert alert-danger alert-dismissible" role="alert">
-    <strong>{{ Session::get('error') }}</strong>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-        <span class="sr-only">Close</span>
-    </button>
-</div>
-@endif
 <div class="row">
     <div class="col-md-12">
         <div class="card strpied-tabled-with-hover">
+
             <div class="card-header ">
                 <h4 class="card-title">Team List</h4>
                 <p class="card-category"></p>
@@ -39,30 +33,29 @@
                                 </option>
                                 @endforeach
                             </select>
+                            <input id="sort_field" type="hidden" name="sort_field" value="">
+                            <input id="sort_type" type="hidden" name="sort_type" value="">
                         </div>
                         <div class="row">
                             <div class="col-md-8 mt-1 mb-1">
-                                <button type="submit" class="btn btn-success">Search</button>
+                                <button id='searchSubmitTest' type="submit" class="btn btn-success">Search</button>
                             </div>
                         </div>
                 </form>
 
             </div>
-            <div class="col-md-2">
-                <a href="{{url ('/management/team/add')}}" class="btn btn-round btn-fill btn-info">Add team</a>
-            </div>
         </div>
 
     </div>
     <div class="card-body table-full-width table-responsive">
-        <table class="table table-hover table-striped">
+        <table class="table table-hover table-striped" id="myTable">
             <thead>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Group</th>
+                <th onclick="sortByField('id')" width="10%">ID</th>
+                <th onclick="sortByField('name')" width="35%">Name</th>
+                <th width="35%">Group</th>
                 <th>Option</th>
             </thead>
-            <tbody>
+            <tbody> 
                 @foreach ($teams as $team)
                 <tr>
                     <td>{{$team->id}}</td>
@@ -72,7 +65,7 @@
                         <a class="btn btn-primary" href="{{ route('team.getEdit',['id'=>$team->id]) }}">
                             Edit
                         </a>
-                        <a class="btn btn-danger" style="margin-left: 5px" href="{{ route('team.delete',['id'=>$team->id]) }}">
+                        <a class="btn btn-danger" style="margin-left: 5px" href="{{ route('team.getDelete',['id'=>$team->id]) }}">
                             Delete
                         </a>
                     </td>
@@ -80,8 +73,12 @@
                 @endforeach
             </tbody>
         </table>
+        {{$teams->appends(request()->input())->links()}}
     </div>
 </div>
 </div>
 </div>
+
+@endsection
+@section('script')
 @endsection

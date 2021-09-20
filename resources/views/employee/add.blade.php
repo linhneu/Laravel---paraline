@@ -78,8 +78,8 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label>Avatar</label>
-                        <input type="text" name="avatar" class="form-control" value="{{old('avatar')}}">
+                        <label for="">Avatar</label>
+                        <input type="file" class="form-control-file" id="image" name="avatar" value="{{old('avatar')}}">
                         @error('avatar')
                         <p class="text-danger text-center"  style="">
                             {{ $message }}

@@ -70,8 +70,9 @@ abstract class BaseRepository implements RepositoryInterface
         $result = $this->_model->where([
             ['name', 'like', '%' . "$search". '%'],
             ['del_flag', '=', DEL_FLAG_ACTIVE]
-        ])->get();
+        ]);
         return $result;
     }
+    
     
 }

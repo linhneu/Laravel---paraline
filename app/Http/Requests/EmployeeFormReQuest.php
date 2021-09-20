@@ -24,13 +24,13 @@ class EmployeeFormReQuest extends FormRequest
     public function rules()
     {
         return [
-            'email' => ['required','email','unique'],
+            'email' => ['required','email'],
             'first_name' => 'required',
             'last_name' => 'required',
             'birthday' => ['required','date'],
             'address' => 'required',
             'avatar' => 'required',
-            'salary' => ['required','numberic','min:6'],
+            'salary' => ['required','numeric','min:6'],
         ];
     }
 }

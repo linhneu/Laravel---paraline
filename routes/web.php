@@ -35,12 +35,13 @@ Route::prefix('/management')->group(function () {
             Route::get('/add', 'GroupController@getAdd')->name('group.getAdd');
             Route::post('/add', 'GroupController@postAdd');
             Route::get('/add_confirm', 'GroupController@getAddConfirm')->name('group.getAddConfirm');
-            Route::post('/add_confirm', 'GroupController@postAddConfirm');
+            Route::post('/add_confirm', 'GroupController@postAddConfirm')->name('group.postAddConfirm');
             Route::get('/edit/{id}', 'GroupController@getEdit')->name('group.getEdit');
             Route::post('/edit/{id}', 'GroupController@postEdit');
             Route::get('/edit_confirm', 'GroupController@getEditConfirm')->name('group.getEditConfirm');
-            Route::post('/edit_confirm', 'GroupController@postEditConfirm');
-            Route::get('/delete/{id}', 'GroupController@delete')->name('group.delete');
+            Route::post('/edit_confirm', 'GroupController@postEditConfirm')->name('group.postEditConfirm');
+            Route::get('/delete', 'GroupController@delete')->name('group.getDelete');
+            Route::post('/delete', 'GroupController@delete');
             Route::get('/search', 'GroupController@getSearch')->name('group.getSearch');
 
         });
@@ -54,7 +55,7 @@ Route::prefix('/management')->group(function () {
             Route::post('/edit/{id}', 'TeamController@postEdit');
             Route::get('/edit_confirm', 'TeamController@getEditConfirm')->name('team.getEditConfirm');
             Route::post('/edit_confirm', 'TeamController@postEditConfirm');
-            Route::get('/delete/{id}', 'TeamController@delete')->name('team.delete');
+            Route::get('/delete', 'TeamController@delete')->name('team.getDelete');
             Route::get('/search', 'TeamController@getSearch')->name('team.getSearch');
         });
 
@@ -68,7 +69,8 @@ Route::prefix('/management')->group(function () {
             Route::post('/edit/{id}', 'EmployeeController@postEdit');
             Route::get('/edit_confirm', 'EmployeeController@getEditConfirm')->name('employee.getEditConfirm');
             Route::post('/edit_confirm', 'EmployeeController@postEditConfirm');
-            Route::get('/delete/{id}', 'EmployeeController@delete')->name('employee.delete');
+            Route::get('/delete/{id}', 'EmployeeController@getDelete')->name('employee.getDelete');
+            Route::post('/delete/{id}', 'EmployeeController@delete');
             Route::get('/search', 'EmployeeController@getSearch')->name('employee.getSearch');
             Route::get('/detail/{id}', 'EmployeeController@getDetail')->name('employee.getDetail');
 

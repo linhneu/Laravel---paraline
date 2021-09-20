@@ -52,8 +52,9 @@
                         <input type="text" name="address" class="form-control" value="{{old('address', $employee->address)}}">
                     </div>
                     <div class="form-group">
-                        <label>Avatar</label>
-                        <input type="text" name="avatar" class="form-control" value="{{old('avatar', $employee->avatar)}}">
+                        <label for="">Avatar</label>
+                        <input type="file" class="form-control-file" id="image" name="avatar" value="{{$employee->avatar}}">
+                        <span class="text-danger" id="image-input-error"></span>
                     </div>
                     <div class="form-group">
                         <label>Salary</label>
@@ -62,7 +63,7 @@
                     <div class="form-group">
                         <label>Position</label>
                         <select class="form-control" name="position">
-                            <?php $lists = [1 => 'Manager', 2 => 'Team Leader', 3 => 'BSE', 4 => 'Dev', 5 =>'Tester']; ?>
+                            <?php $lists = [1 => 'Manager', 2 => 'Team Leader', 3 => 'BSE', 4 => 'Dev', 5 => 'Tester']; ?>
                             @foreach($lists as $key => $value)
                             <option value={{$key}} @if($key==old('position', $employee->position)) selected @endif>
                                 {{$value}}

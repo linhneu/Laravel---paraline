@@ -14,7 +14,7 @@
                         <label>Name</label>
                         <input type="text" name="name" class="form-control" value="{{old('name')}}">
                         @error('name')
-                        <p class="text-danger text-center"  style="">
+                        <p class="text-danger text-center"  >
                             {{ $message }}
                         </p>
                         @enderror

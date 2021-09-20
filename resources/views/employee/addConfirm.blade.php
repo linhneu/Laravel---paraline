@@ -52,8 +52,8 @@
                         <input type="text" name="address" class="form-control" value="{{old('address')}}" readonly>
                     </div>
                     <div class="form-group">
-                        <label>Avatar</label>
-                        <input type="text" name="avatar" class="form-control" value="{{old('avatar')}}" readonly>
+                        <label for="">Avatar</label>
+                        <input type="file" class="form-control-file" id="image" name="avatar" value="{{old('avatar')}}">
                     </div>
                     <div class="form-group">
                         <label>Salary</label>

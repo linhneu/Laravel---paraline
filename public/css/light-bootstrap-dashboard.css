@@ -204,6 +204,7 @@ h1 .subtitle {
     color: #ffffff !important;
     background-color: #FF99CC !important;
     border-radius: 5px !important;
+    margin-top: 3px !important;
 }
 
 /*     General overwrite     */
@@ -1664,7 +1665,7 @@ fieldset[disabled] .form-control {
 
 .alert {
     border: 0;
-    border-radius: 0;
+    border-radius: 3px;
     color: #FFFFFF;
     padding: 10px 15px;
     font-size: 14px;

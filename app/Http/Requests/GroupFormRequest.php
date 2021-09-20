@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class GroupFormRequest extends FormRequest
 {
@@ -24,7 +25,7 @@ class GroupFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required'
+            'name' => ['required', Rule::unique('m_groups')->ignore($this->id)]
         ];
     }
 }

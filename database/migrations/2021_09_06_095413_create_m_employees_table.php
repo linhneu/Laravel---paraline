@@ -16,7 +16,7 @@ class CreateMEmployeesTable extends Migration
         Schema::create('m_employees', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('team_id');
-            $table->string('email', 128)->unique();
+            $table->string('email', 128);
             $table->string('first_name', 128);
             $table->string('last_name', 128);
             $table->char('gender', 1)->comment("1: Nam, 2: Nữ");
