@@ -23,12 +23,12 @@
             <div class="col-md-10">
                 <form action="{{route('team.getSearch')}}" method="GET">
                     <div class="row">
-                        <div class="col-md-4">
-                            <input type="text" name="search" class="form-control">
+                        <div class="col-md-4" >
+                            <input type="text" name="search" class="form-control" style="margin-bottom:5px" placeholder="Enter Name" value="{{$_REQUEST['search'] ?? null}}">
                             <select class="form-control" name="group_id">
                                 <option value="">Choose group</option>
                                 @foreach ($groups as $group)
-                                <option value="{{$group->id}}">
+                                <option value="{{$group->id}}"  @if( isset($_REQUEST['group_id']) && $group->id == $_REQUEST['group_id']) selected @endif>
                                     {{$group->name}}
                                 </option>
                                 @endforeach
@@ -52,7 +52,7 @@
             <thead>
                 <th onclick="sortByField('id')" width="10%">ID</th>
                 <th onclick="sortByField('name')" width="35%">Name</th>
-                <th width="35%">Group</th>
+                <th onclick="sortByField('group_id')" width="35%">Group</th>
                 <th>Option</th>
             </thead>
             <tbody> 
@@ -65,9 +65,10 @@
                         <a class="btn btn-primary" href="{{ route('team.getEdit',['id'=>$team->id]) }}">
                             Edit
                         </a>
-                        <a class="btn btn-danger" style="margin-left: 5px" href="{{ route('team.getDelete',['id'=>$team->id]) }}">
+                        <a href="" data-id={{$team->id}} data-toggle="modal" data-target="#delete" class="btn btn-danger open-delete-modal">
                             Delete
                         </a>
+
                     </td>
                 </tr>
                 @endforeach
@@ -78,7 +79,36 @@
 </div>
 </div>
 </div>
+<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">Delete Confirmation</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure to delete this team?</p>
+            </div>
+            <form action="{{ route('team.getDelete') }}" method="get">
+                <input type="hidden" name="id" id="teamid" value="">
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-success" data-dismiss="modal" style="margin-right: 10px">No, Cancel</button>
+                    <button type="submit" class="btn btn-warning">Yes, Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 @endsection
 @section('script')
+<script>
+    $(document).on('click', '.open-delete-modal', function() {
+        let id = $(this).attr('data-id');
+        $('#teamid').val(id);
+    });
+</script>
+
 @endsection

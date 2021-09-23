@@ -3,22 +3,34 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\GroupFormRequest;
+use App\Models\GroupModel;
+use App\Models\TeamModel;
+use App\Repositories\EmployeeRepository;
 use Illuminate\Http\Request;
 use App\Repositories\GroupRepository;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\URL;
-use Symfony\Component\Console\Input\Input;
+use App\Repositories\TeamRepository;
+use Exception;
+use Illuminate\Support\Facades\DB;
 
 class GroupController extends Controller
 {
-    public function __construct(GroupRepository $groupRepository)
+    public function __construct(GroupRepository $groupRepository, TeamRepository $teamRepository, EmployeeRepository $employeeRepository)
     {
         $this->groupRepository = $groupRepository;
+        $this->teamRepository = $teamRepository;
+        $this->employeeRepository = $employeeRepository;
     }
-    public function index()
+    public function index(Request $request)
     {
-        $groups = $this->groupRepository->paginate();
+        if ($request->sort_field != '' && $request->sort_type != '') {
+            if ($request->sort_type == 'desc') {
+                $groups = GroupModel::orderByDesc($request->sort_field)->paginate(LIMIT_PER_PAGE);
+            } else if ($request->sort_type == 'asc') {
+                $groups = GroupModel::orderBy($request->sort_field)->paginate(LIMIT_PER_PAGE);
+            }
+        } else if ($request->sort_field == null && $request->sort_type == null) {
+            $groups = GroupModel::paginate(LIMIT_PER_PAGE);
+        }
         return view('group.index', compact('groups'));
     }
 
@@ -66,8 +78,18 @@ class GroupController extends Controller
     public function delete(Request $request)
     {
         $id = $request->id;
-        $data = $request->all();
-        $this->groupRepository->delete($id, $data);
+        $data['del_flag'] = DEL_FLAG_BANNED;
+        $team_id = TeamModel::groupId($id)->pluck('id');
+        DB::beginTransaction();
+        try {
+            $this->employeeRepository->deleteEmployeeByTeamId($team_id, $data);
+            $this->teamRepository->deleteTeamByGroupId($id, $data);
+            $this->groupRepository->delete($id, $data);
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollBack();
+            throw new Exception($e->getMessage());
+        }
         return redirect()->route('group.index')->with('message', 'You have delete the group successfully');
     }
 
@@ -85,5 +107,4 @@ class GroupController extends Controller
         }
         return view('group.index', compact('groups'));
     }
-    
 }

@@ -24,17 +24,8 @@ class UserFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|email',
-            'password' => 'required|min:5'
-        ];
-    }
-    public function message()
-    {
-        return [
-            'email.required' => 'You must fill email',
-            'email.email' => 'email is not in correct format',
-            'password.required' => 'You must fill password',
-            'password.min' => 'password must have at least 8 characters',
+            'email' => ['required', 'email'],
+            'password' => ['required','min:5']
         ];
     }
 }

@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TeamFormRequest;
+use App\Models\GroupModel;
 use App\Models\TeamModel;
 use App\Repositories\GroupRepository;
 use Illuminate\Http\Request;
 use App\Repositories\TeamRepository;
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 
 class TeamController extends Controller
 {
@@ -17,21 +20,29 @@ class TeamController extends Controller
         $this->groupRepository = $groupRepository;
         $this->team = $team;
     }
-    public function index()
+    public function index(Request $request)
     {
-        $teams = $this->teamRepository->paginate();
-        $groups = $this->groupRepository->all();
+        if ($request->sort_field != '' && $request->sort_type != '') {
+            if ($request->sort_type == 'desc') {
+                $teams = TeamModel::orderByDesc($request->sort_field)->paginate(LIMIT_PER_PAGE);
+            } else if ($request->sort_type == 'asc') {
+                $teams = TeamModel::orderBy($request->sort_field)->paginate(LIMIT_PER_PAGE);
+            }
+        } else if ($request->sort_field == null && $request->sort_type == null) {
+            $teams = TeamModel::paginate(LIMIT_PER_PAGE);
+        }
+        $groups = GroupModel::all();
         return view('team.index', compact('teams', 'groups'));
     }
 
     public function getAdd(Request $request)
     {
-        $groups = $this->groupRepository->all();
+        $groups = GroupModel::all();
         return view('team.add', compact('groups'));
     }
     public function getAddConfirm(Request $request)
     {
-        $groups = $this->groupRepository->all();
+        $groups = GroupModel::all();
         return view('team.editConfirm', compact('groups'));
     }
     public function postAdd(TeamFormRequest $request)
@@ -49,12 +60,12 @@ class TeamController extends Controller
     {
         $id = $request->id;
         $team = $this->teamRepository->find($id);
-        $groups = $this->groupRepository->all();
+        $groups = GroupModel::all();
         return view('team.edit', compact('team', 'groups'));
     }
     public function getEditConfirm(Request $request)
     {
-        $groups = $this->groupRepository->all();
+        $groups = GroupModel::all();
         return view('team.editConfirm', compact('groups'));
     }
     public function postEdit(TeamFormRequest $request)
@@ -69,36 +80,40 @@ class TeamController extends Controller
         $this->teamRepository->update($id, $data);
         return redirect()->route('team.index')->with('message', 'You have updated the account successfully');
     }
-    public function getDelete(Request $request)
+    public function delete(Request $request)
     {
-        $request->id;
-        return view('team.deleteConfirm');
-    }
-    public function delete(Request $request, $id)
-    {
-        $data = $request->all();
-        $this->teamRepository->delete($id, $data);
-        return redirect()->route('team.index')->with('message', 'You have delete the group successfully');
+        $id = $request->id;
+        $data['del_flag'] = DEL_FLAG_BANNED;
+        DB::beginTransaction();
+        try {
+            $this->employeeRepository->deleteEmployeebyTeamId($id, $data);
+            $this->teamRepository->delete($id, $data);    
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollBack();
+            throw new Exception($e->getMessage());
+        }
+        return redirect()->route('team.index')->with('message', 'You have delete the employee successfully');
     }
     public function getSearch(Request $request, Builder $query)
     {
-        $groups = $this->groupRepository->all();
+        $groups = GroupModel::all();
         $group_id = $request->group_id;
         $search = $request->search;
-        if ($request->sort_field != '' && $request->sort_type != '') 
-        {
-            if($request->sort_type == 'desc')
-            {
-                $teams = TeamModel::groupId($group_id)->name($search)->orderByDesc($request->sort_field)->paginate(3);
-
-            } else if($request->sort_type == 'asc')
-            {
-                $teams = TeamModel::groupId($group_id)->name($search)->orderBy($request->sort_field)->paginate(3);
-            }
-
-        } else if ($request->sort_field == null && $request->sort_type == null) {
-            $teams = TeamModel::groupId($group_id)->name($search)->paginate(3);
+        $query = $this->teamRepository->findByField($search);
+        if ($group_id > 0) {
+            $query->groupId($group_id)->paginate(LIMIT_PER_PAGE);
         }
+        if ($request->sort_field != '' && $request->sort_type != '') {
+            if ($request->sort_type == 'desc') {
+                $teams = $query->orderByDesc($request->sort_field)->paginate(LIMIT_PER_PAGE);
+            } else if ($request->sort_type == 'asc') {
+                $teams = $query->orderBy($request->sort_field)->paginate(LIMIT_PER_PAGE);
+            }
+        } else if ($request->sort_field == null && $request->sort_type == null) {
+            $teams = $query->paginate(LIMIT_PER_PAGE);
+        }
+
         return view('team.index', compact('teams', 'groups'));
     }
 }

@@ -6,7 +6,7 @@
         <p class="card-category"></p>
     </div>
     <div class="panel-body" style="margin-left: 15px">
-        <form method="post" enctype="multipart/form-data">
+        <form method="post" enctype="multipart/form-data" id="the-form">
             @csrf
             <div class="row" style="margin-bottom:40px">
                 <div class="col-xs-8">
@@ -20,7 +20,7 @@
                     </div> 
                     <div class="form-group">
                         <label>Team name</label>
-                        <select class="form-control" name="team_id" disabled>
+                        <select class="form-control" name="team_id" readonly>
                             @foreach ($teams as $team)
                             <option value="{{$team->id}}" @if($team->id == old('team_id')) selected @endif>
                                 {{$team->name}}
@@ -34,7 +34,7 @@
                     </div>
                     <div class="form-group">
                         <label>Gender</label>
-                        <select class="form-control" name="gender" >
+                        <select class="form-control" name="gender" readonly>
                             <?php $lists = [1 => 'Nam', 2 => 'Nữ']; ?>
                             @foreach($lists as $key => $value)
                             <option value={{$key}} @if($key==old('gender')) selected @endif>
@@ -53,7 +53,9 @@
                     </div>
                     <div class="form-group">
                         <label for="">Avatar</label>
-                        <input type="file" class="form-control-file" id="image" name="avatar" value="{{old('avatar')}}">
+                        <input type="file" class="form-control" name="avatar" value="{{old('avatar')}}" readonly >
+                        <!-- <input type="file" class="form-control"  value="{{old('avatar')}}" readonly> -->
+                        <!-- <input type="file" class="form-control-file" id="image" name="avatar" value="{{old('avatar')}}"> -->
                     </div>
                     <div class="form-group">
                         <label>Salary</label>
@@ -61,7 +63,7 @@
                     </div>
                     <div class="form-group">
                         <label>Position</label>
-                        <select class="form-control" name="position" >
+                        <select class="form-control" name="position" readonly>
                             <?php $lists = [1 => 'Manager', 2 => 'Team Leader', 3 => 'BSE', 4 => 'Dev', 5 =>'Tester']; ?>
                             @foreach($lists as $key => $value)
                             <option value={{$key}} @if($key==old('position')) selected @endif>
@@ -72,7 +74,7 @@
                     </div>
                     <div class="form-group">
                         <label>Status</label>
-                        <select class="form-control" name="status" >
+                        <select class="form-control" name="status" readonly>
                             <?php $lists = [1 => 'Đang làm việc', 2 => 'Đã nghỉ việc']; ?>
                             @foreach($lists as $key => $value)
                             <option value={{$key}} @if($key==old('status')) selected @endif>
@@ -83,7 +85,7 @@
                     </div>
                     <div class="form-group">
                         <label>Type of work</label>
-                        <select class="form-control" name="type_of_work" >
+                        <select class="form-control" name="type_of_work" readonly>
                             <?php $lists = [1 => 'Nhân viên chính thức fulltime', 2 => 'Nhân viên partime', 3 => 'Nhân viên thử việc', 4 => 'Thực tập sinh']; ?>
                             @foreach($lists as $key => $value)
                             <option value={{$key}} @if($key==old('type_of_work')) selected @endif>
@@ -93,12 +95,62 @@
                         </select>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Agree</button>
-                    <a href="{{ url()->previous()}}" class="btn btn-danger">Cancel</a>
+                    <button type="button" id="btn-confirm" class="btn btn-primary">Agree</button>
+                    <a href="javascript:history.back()" class="btn btn-danger">Back</a>
                 </div>
             </div>
         </form>
     </div>
 
 </div>
+<div class="modal fade" id="mi-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Confirmation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure to edit this group?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="modal-btn-no" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <button type="submit" id="modal-btn-yes" class="btn btn-primary">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@endsection
+@section('script')
+<script>
+    var modalConfirm = function(callback) {
+
+        $("#btn-confirm").on("click", function() {
+            $("#mi-modal").modal('show');
+        });
+
+        $("#modal-btn-yes").on("click", function() {
+            callback(true);
+            $("#mi-modal").modal('hide');
+            $('#the-form').submit();
+        });
+
+        $("#modal-btn-no").on("click", function() {
+            callback(false);
+            $("#mi-modal").modal('hide');
+        });
+    };
+    modalConfirm(function(confirm) {
+        if (confirm) {
+            $("#result").html("CONFIRMADO");
+        } else {
+            $("#result").html("NO CONFIRMADO");
+        }
+    });
+
+</script>
 @endsection

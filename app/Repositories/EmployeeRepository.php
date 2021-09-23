@@ -18,4 +18,11 @@ class EmployeeRepository extends BaseRepository
         ]);
         return $result;
     }
+    public function deleteEmployeeByTeamId($team_id, $data)
+    {
+        if ($team_id) {
+            return $this->_model->where('team_id', '=', $team_id)->update($data);
+        }
+        return false;
+    }
 }

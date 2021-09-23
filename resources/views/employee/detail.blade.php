@@ -43,7 +43,7 @@
                     </td>
                     <td>{{$employee->birthday}}</td>
                     <td>{{$employee->address}}</td>
-                    <td><img src="{{$employee->avatar}} " width="50px"></td>
+                    <td><img src="{{asset('/storage/images/employees/'.$employee->avatar) }} " width="50px"></td>
                     <td>{{$employee->salary}}</td>
                     <td>
                     <?php $lists = [1 => 'Manager', 2 => 'Team Leader', 3 => 'BSE', 4 => 'Dev', 5 =>'Tester']; ?>

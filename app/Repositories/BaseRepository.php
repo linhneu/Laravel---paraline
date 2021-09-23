@@ -3,11 +3,9 @@
 namespace App\Repositories;
 
 use Illuminate\Console\Application;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 
-define('DEL_FLAG_ACTIVE', 0);
-define('DEL_FLAG_BANNED', 1);
-define("LIMIT_PER_PAGE", 10);
 abstract class BaseRepository implements RepositoryInterface
 {
     protected $model;
@@ -25,7 +23,7 @@ abstract class BaseRepository implements RepositoryInterface
     }
     public function all()
     {
-        return $this->_model->where('del_flag', '=', DEL_FLAG_ACTIVE)->get();
+        //return $this->_model->where('del_flag', '=', DEL_FLAG_ACTIVE);
     }
     public function find($id)
     {
@@ -35,13 +33,11 @@ abstract class BaseRepository implements RepositoryInterface
     public function create(array $data)
     {
         $data['ins_id'] = Auth::user()->id;
-        $data['upd_id'] = Auth::user()->id;
         $data['del_flag'] = DEL_FLAG_ACTIVE;
         return $this->_model->create($data);
     }
     public function update($id, array $data)
     {
-        $data['ins_id'] = Auth::user()->id;
         $data['upd_id'] = Auth::user()->id;
         $data['del_flag'] = DEL_FLAG_ACTIVE;
         $result = $this->find($id);
@@ -53,7 +49,6 @@ abstract class BaseRepository implements RepositoryInterface
     }
     public function delete($id, $data)
     {
-        $data['del_flag'] = DEL_FLAG_BANNED;
         $result = $this->find($id);
         if ($result) {
             $result->update($data);
@@ -63,7 +58,7 @@ abstract class BaseRepository implements RepositoryInterface
     }
     public function paginate()
     {
-        return $this->_model->where('del_flag', '=', DEL_FLAG_ACTIVE)->paginate(5);
+        //return $this->_model->where('del_flag', '=', DEL_FLAG_ACTIVE)->paginate(5);
     }
     public function findByField($search)
     {
@@ -73,6 +68,4 @@ abstract class BaseRepository implements RepositoryInterface
         ]);
         return $result;
     }
-    
-    
 }

@@ -13,10 +13,21 @@
                     <div class="form-group">
                         <label>First Name</label>
                         <input type="text" name="first_name" class="form-control" value="{{old('first_name', $employee->first_name)}}">
+                        @error('first_name')
+                        <p class="text-danger text-center"  style="">
+                            {{ $message }}
+                        </p>
+                        @enderror
+
                     </div>
                     <div class="form-group">
                         <label>Last Name</label>
                         <input type="text" name="last_name" class="form-control" value="{{old('last_name', $employee->last_name )}}">
+                        @error('last_name')
+                        <p class="text-danger text-center"  style="">
+                            {{ $message }}
+                        </p>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label>Team name</label>
@@ -31,6 +42,11 @@
                     <div class="form-group">
                         <label>Email</label>
                         <input type="text" name="email" class="form-control" value="{{old('email', $employee->email)}}">
+                        @error('email')
+                        <p class="text-danger text-center"  style="">
+                            {{ $message }}
+                        </p>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label>Gender</label>
@@ -46,19 +62,40 @@
                     <div class="form-group">
                         <label>Birtday</label>
                         <input type="text" name="birthday" class="form-control" value="{{old('birthday', $employee->birthday)}}">
+                        @error('birthday')
+                        <p class="text-danger text-center"  style="">
+                            {{ $message }}
+                        </p>
+                        @enderror
+
                     </div>
                     <div class="form-group">
                         <label>Address</label>
                         <input type="text" name="address" class="form-control" value="{{old('address', $employee->address)}}">
+                        @error('address')
+                        <p class="text-danger text-center"  style="">
+                            {{ $message }}
+                        </p>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="">Avatar</label>
                         <input type="file" class="form-control-file" id="image" name="avatar" value="{{$employee->avatar}}">
-                        <span class="text-danger" id="image-input-error"></span>
+                        <img src="{{asset('/storage/images/employees/'.$employee->avatar) }} " alt="" width="80px">
+                        @error('avatar')
+                        <p class="text-danger text-center">
+                            {{ $message }}
+                        </p>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label>Salary</label>
                         <input type="text" name="salary" class="form-control" value="{{old('salary', $employee->salary)}}">
+                        @error('salary')
+                        <p class="text-danger text-center"  style="">
+                            {{ $message }}
+                        </p>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label>Position</label>

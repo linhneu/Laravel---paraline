@@ -2,9 +2,12 @@
 
 namespace App\Models;
 
+use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class TeamModel extends Model
 {
@@ -24,12 +27,18 @@ class TeamModel extends Model
      * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
+    protected static function booted()
+    {
+        static::addGlobalScope('getList', function (Builder $builder) {
+            $builder->where('del_flag', DEL_FLAG_ACTIVE);
+        });
+    }
     public function scopeGroupId($query, $group_id)
     {
-         return $query->where('group_id', '=', $group_id );
+        return $query->where('group_id', '=', $group_id);
     }
-    public function scopeName($query, $search)
+    public function setNameAttribute($name)
     {
-        return $query->where('name', 'like', '%' . "$search". '%' );
+        $this->attributes['name'] = ucfirst($name);
     }
 }

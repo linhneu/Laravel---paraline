@@ -23,7 +23,7 @@
                 <form action="{{route('group.getSearch')}}" method="GET">
                     <div class="row">
                         <div class="col-md-4">
-                            <input type="search" name="search" class="form-control">
+                            <input type="search" name="search" class="form-control" placeholder="Enter Name">
                             <input id="sort_field" type="hidden" name="sort_field" class="form-control">
                             <input id="sort_type" type="hidden" name="sort_type" class="form-control">
                         </div>
@@ -55,7 +55,6 @@
                         <a class="btn btn-primary" href="{{ route('group.getEdit',['id'=>$group->id]) }}">
                             Edit
                         </a>
-                        <!-- <button class="btn btn-danger" id="del_btn" groupid={{$group->id}}>Delete</button>                     -->
                         <a href="" data-id={{$group->id}} data-toggle="modal" data-target="#delete" class="btn btn-danger open-delete-modal">
                             Delete
                         </a>
@@ -70,14 +69,17 @@
 </div>
 </div>
 </div>
-<div class="modal modal-danger fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-            <h4 class="modal-title" id="exampleModalLabel">Are you sure ?</h4>
+                <h4 class="modal-title" id="exampleModalLabel">Delete Confirmation</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure to delete this group?</p>
             </div>
             <form action="{{ route('group.getDelete') }}" method="get">
                 <input type="hidden" name="id" id="groupid" value="">
@@ -92,9 +94,9 @@
 @endsection
 @section('script')
 <script>
-     $(document).on('click','.open-delete-modal',function(){
-         let id = $(this).attr('data-id');
-         $('#groupid').val(id);
+    $(document).on('click', '.open-delete-modal', function() {
+        let id = $(this).attr('data-id');
+        $('#groupid').val(id);
     });
 </script>
 @endsection

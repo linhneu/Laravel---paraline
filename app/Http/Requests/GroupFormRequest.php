@@ -25,7 +25,7 @@ class GroupFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', Rule::unique('m_groups')->ignore($this->id)]
+            'name' => ['required','max:128', Rule::unique('m_groups')->ignore($this->id)]
         ];
     }
 }

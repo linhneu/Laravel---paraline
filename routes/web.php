@@ -69,8 +69,7 @@ Route::prefix('/management')->group(function () {
             Route::post('/edit/{id}', 'EmployeeController@postEdit');
             Route::get('/edit_confirm', 'EmployeeController@getEditConfirm')->name('employee.getEditConfirm');
             Route::post('/edit_confirm', 'EmployeeController@postEditConfirm');
-            Route::get('/delete/{id}', 'EmployeeController@getDelete')->name('employee.getDelete');
-            Route::post('/delete/{id}', 'EmployeeController@delete');
+            Route::get('/delete', 'EmployeeController@delete')->name('employee.getDelete');
             Route::get('/search', 'EmployeeController@getSearch')->name('employee.getSearch');
             Route::get('/detail/{id}', 'EmployeeController@getDetail')->name('employee.getDetail');
 

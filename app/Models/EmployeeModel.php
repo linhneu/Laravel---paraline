@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -18,32 +19,29 @@ class EmployeeModel extends Model
     ];
     public function getNameAttribute()
     {
-        return $this->first_name . " " . $this->last_name;
+        return ucfirst($this->first_name) . " " . ucfirst($this->last_name);
     }
-    public function scopeTeamId($query, $team_id)
+    public function setAddressAttribute($address)
     {
-        return $query->where('team_id', '=', $team_id);
-    }
-    public function scopeGroupId( $group_id)
-    {
-        //return DB::table('m_teams')->select('group_id')->where('group_id', '=', $group_id);
-        // return DB::table('m_teams')->whereHas('group_id', function($query){
-        //     $query->whereIn($group_id);
-        // })->get();
-        return TeamModel::groupId($group_id);
-    }
-
-    public function scopeName($query, $search)
-    {
-        return $query->where('last_name', 'like', '%' . "$search" . '%');
+        $this->attributes['address'] = ucfirst($address);
     }
     public function scopeEmail($query, $email)
     {
         return $query->where('email', 'like', '%' . "$email" . '%');
     }
+    public function scopeTeamId($query, $team_id)
+    {
+        return $query->where('team_id', '=', $team_id);
+    }
     public function team()
     {
         return $this->belongsTo(TeamModel::class);
     }
-
+    protected static function booted()
+    {
+        static::addGlobalScope('getList', function (Builder $builder)
+        {
+            $builder->where('del_flag', DEL_FLAG_ACTIVE);
+        });
+    }
 }

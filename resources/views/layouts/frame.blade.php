@@ -31,8 +31,8 @@
                         Your Logo
                     </a>
                 </div>
-                <ul class="nav">
-                    <li id="home" class="nav-item ">
+                <ul class="nav" id="">
+                    <li id="home" class="nav-item">
                         <a class="nav-link" href="{{url ('/management/dashboard')}}">
                             <i class="nc-icon nc-icon nc-paper-2"></i>
                             <p>Dashboard</p>
@@ -155,41 +155,42 @@
 </body>
 @yield('script')
 
-<script>
+<script> // tạo file ngoài js/ include cái js đấy
     function sortByField(field) {
         let type_inner = '';
         let params = new URLSearchParams(location.search);
         let currentType = params.get('sort_type');
-        if (currentType === 'asc') {
-            type_inner = 'desc';
-        } else if (currentType === 'desc') {
-            type_inner = 'asc';
-        } else {
-            type_inner = 'asc';
-        }
+        // if (currentType === 'asc') {
+        //     type_inner = 'desc';
+        // }else {
+        //     type_inner = 'asc';
+        // }
+        type_inner=currentType == 'asc' ? 'desc':'asc' // search tìm hiểu thêm
         params.set('sort_field', field);
         params.set('sort_type', type_inner);
         location.search = params.toString();
         console.log(params.toString());
     }
-    
-    $(document).ready(function () {         
-    $(function(){
-        var current_page_URL = location.href;
 
-        $( "a" ).each(function() {
+    $(document).ready(function() {
+        $(function() {
+            var current_page_URL = location.href;
 
-            if ($(this).attr("href") !== "#") {
+            $("a").each(function() {
 
-                var target_URL = $(this).prop("href");
+                if ($(this).attr("href") !== "#") {
+
+                    var target_URL = $(this).prop("href");
 
                     if (target_URL == current_page_URL) {
                         $('nav a').parents('li, ul').removeClass('active');
                         $(this).parent('li').addClass('active');
-                        return false;
                     }
-            }
-        }); }); });
+                }
+            });
+            
+        });
+    });
 </script>
 
 <!--   Core JS Files   -->
@@ -211,7 +212,5 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-
-
 
 </html>

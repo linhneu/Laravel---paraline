@@ -16,7 +16,7 @@
                         <input type="text" name="name" class="form-control name" value="{{old('name')}}" readonly>
                     </div>
                     <button type="button" id="btn-confirm" class="btn btn-primary"> Agree</button>
-                    <a href="{{url()->previous()}}" class="btn btn-danger">Back</a>
+                    <a href="javascript:history.back()" class="btn btn-danger">Back</a>
                 </div>
             </div>
         </form>
@@ -27,10 +27,13 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="exampleModalLabel">Are you sure ?</h4>
+                <h4 class="modal-title" id="exampleModalLabel">Add Confirmation</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure to add this group?</p>
             </div>
             <div class="modal-footer justify-content-center">
                 <button type="button" id="modal-btn-no" class="btn btn-success" data-dismiss="modal" style="margin-right: 10px">No, Cancel</button>
