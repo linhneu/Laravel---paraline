@@ -57,6 +57,10 @@ class GroupController extends Controller
     {
         $id = $request->id;
         $group = $this->groupRepository->find($id);
+        if(!$group)
+        {
+            return redirect()->route('group.index')->with('message', 'Sorry id does not exist');
+        }
         return view('group.edit', compact('group'));
     }
     public function getEditConfirm()
@@ -78,6 +82,10 @@ class GroupController extends Controller
     public function delete(Request $request)
     {
         $id = $request->id;
+        if(!$this->groupRepository->find($id))
+        {
+            return redirect()->route('group.index')->with('message', 'Sorry id does not exist');
+        }
         $data['del_flag'] = DEL_FLAG_BANNED;
         $team_id = TeamModel::groupId($id)->pluck('id');
         DB::beginTransaction();

@@ -155,7 +155,7 @@
 </body>
 @yield('script')
 
-<script> // tạo file ngoài js/ include cái js đấy
+<script>
     function sortByField(field) {
         let type_inner = '';
         let params = new URLSearchParams(location.search);
@@ -165,7 +165,7 @@
         // }else {
         //     type_inner = 'asc';
         // }
-        type_inner=currentType == 'asc' ? 'desc':'asc' // search tìm hiểu thêm
+        type_inner=currentType == 'asc' ? 'desc':'asc'
         params.set('sort_field', field);
         params.set('sort_type', type_inner);
         location.search = params.toString();

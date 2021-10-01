@@ -17,7 +17,7 @@
                     <div class="form-group">
                         <label>Last Name</label>
                         <input type="text" name="last_name" class="form-control" value="{{old('last_name')}}" readonly>
-                    </div> 
+                    </div>
                     <div class="form-group">
                         <label>Team name</label>
                         <select class="form-control" name="team_id" readonly>
@@ -53,9 +53,9 @@
                     </div>
                     <div class="form-group">
                         <label for="">Avatar</label>
-                        <input type="file" class="form-control" name="avatar" value="{{old('avatar')}}" readonly >
-                        <!-- <input type="file" class="form-control"  value="{{old('avatar')}}" readonly> -->
-                        <!-- <input type="file" class="form-control-file" id="image" name="avatar" value="{{old('avatar')}}"> -->
+                        <input type="text" class="form-control" value="{{Session::get('avatar')}}" readonly>
+                        <input hidden type="text" id="img-confirm" class="form-control" name="avatar" value="{{ Session::get('avatar') }}">
+                        <img src="{{asset('/storage/images/employees/'.Session::get('avatar')) }} " alt="">
                     </div>
                     <div class="form-group">
                         <label>Salary</label>
@@ -64,7 +64,7 @@
                     <div class="form-group">
                         <label>Position</label>
                         <select class="form-control" name="position" readonly>
-                            <?php $lists = [1 => 'Manager', 2 => 'Team Leader', 3 => 'BSE', 4 => 'Dev', 5 =>'Tester']; ?>
+                            <?php $lists = [1 => 'Manager', 2 => 'Team Leader', 3 => 'BSE', 4 => 'Dev', 5 => 'Tester']; ?>
                             @foreach($lists as $key => $value)
                             <option value={{$key}} @if($key==old('position')) selected @endif>
                                 {{$value}}
@@ -103,8 +103,7 @@
     </div>
 
 </div>
-<div class="modal fade" id="mi-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="mi-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -151,6 +150,11 @@
             $("#result").html("NO CONFIRMADO");
         }
     });
-
+    $(document).ready(function() {
+        $("input[type='image']").click(function(e) {
+            e.preventDefault();
+            $("input[id='id-confirm']").click();
+        });
+    })
 </script>
 @endsection

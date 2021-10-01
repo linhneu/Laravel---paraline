@@ -23,7 +23,7 @@
                 <form action="{{route('group.getSearch')}}" method="GET">
                     <div class="row">
                         <div class="col-md-4">
-                            <input type="search" name="search" class="form-control" placeholder="Enter Name">
+                            <input type="search" name="search" class="form-control" placeholder="Enter Name" value="{{$_REQUEST['search'] ?? null}}">
                             <input id="sort_field" type="hidden" name="sort_field" class="form-control">
                             <input id="sort_type" type="hidden" name="sort_type" class="form-control">
                         </div>

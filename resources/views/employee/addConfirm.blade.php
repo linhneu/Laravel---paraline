@@ -53,7 +53,8 @@
                     </div>
                     <div class="form-group">
                         <label for="">Avatar</label>
-                        <input type="file" class="form-control-file" id="image" name="avatar" value="{{old('avatar')}}">
+                        <input type="text" class="form-control" value="{{Session::get('avatar')}}" readonly>
+                        <input hidden type="text" class="form-control-file" id="image" name="avatar" value="{{Session::get('avatar')}}">
                     </div>
                     <div class="form-group">
                         <label>Salary</label>

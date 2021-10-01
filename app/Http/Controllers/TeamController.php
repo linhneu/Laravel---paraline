@@ -11,6 +11,7 @@ use App\Repositories\TeamRepository;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\Console\Input\Input;
 
 class TeamController extends Controller
 {
@@ -60,6 +61,10 @@ class TeamController extends Controller
     {
         $id = $request->id;
         $team = $this->teamRepository->find($id);
+        if(!$team)
+        {
+            return redirect()->route('group.index')->with('message', 'Sorry id does not exist');
+        }
         $groups = GroupModel::all();
         return view('team.edit', compact('team', 'groups'));
     }
@@ -83,6 +88,11 @@ class TeamController extends Controller
     public function delete(Request $request)
     {
         $id = $request->id;
+        if(!$this->teamRepository->find($id))
+        {
+            return redirect()->route('group.index')->with('message', 'Sorry id does not exist');
+        }
+
         $data['del_flag'] = DEL_FLAG_BANNED;
         DB::beginTransaction();
         try {
